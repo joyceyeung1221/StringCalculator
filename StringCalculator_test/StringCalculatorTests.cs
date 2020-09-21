@@ -16,7 +16,7 @@ namespace StringCalculator
         [Fact]
         public void GivenEmptyString_ShouldReturn0()
         {
-            var actual = calculator.Calculate("");
+            var actual = calculator.Add("");
             var expected = 0;
 
             Assert.Equal(expected, actual);
@@ -28,7 +28,7 @@ namespace StringCalculator
 
         public void GivenNumber_ShouldReturnNumber(string input, int value)
         {
-            var actual = calculator.Calculate(input);
+            var actual = calculator.Add(input);
 
             Assert.Equal(value, actual);
 
@@ -37,7 +37,7 @@ namespace StringCalculator
         [Fact]
         public void GivenTwoNumbers_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("3,5");
+            var actual = calculator.Add("3,5");
             var expected = 8;
 
             Assert.Equal(expected, actual);
@@ -47,7 +47,7 @@ namespace StringCalculator
         [Fact]
         public void GivenAnyNumbers_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("3,5,3,9");
+            var actual = calculator.Add("3,5,3,9");
             var expected = 20;
 
             Assert.Equal(expected, actual);
@@ -57,7 +57,7 @@ namespace StringCalculator
         [Fact]
         public void GivenThereIsNewLineBreaksBetweenNumbers_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("3\n5\n3,9");
+            var actual = calculator.Add("3\n5\n3,9");
             var expected = 20;
 
             Assert.Equal(expected, actual);
@@ -67,7 +67,7 @@ namespace StringCalculator
         [Fact]
         public void GivenDifferentDelimiters_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("//;\n1;2");
+            var actual = calculator.Add("//;\n1;2");
             var expected = 3;
 
             Assert.Equal(expected, actual);
@@ -76,7 +76,7 @@ namespace StringCalculator
         [Fact]
         public void GivenNegativeNumbers_ShouldThrowNegativeException()
         {
-            Action act = () => calculator.Calculate("-1,2,-3");
+            Action act = () => calculator.Add("-1,2,-3");
             //assert
             NegativeNumberException exception = Assert.Throws<NegativeNumberException>(act);
             //The thrown exception can be used for even more detailed assertions.
@@ -86,7 +86,7 @@ namespace StringCalculator
         [Fact]
         public void GivenNumberLargerThan1000_ShouldBeIgnored()
         {
-            var actual = calculator.Calculate("1000,1001,2");
+            var actual = calculator.Add("1000,1001,2");
             var expected = 2;
 
             Assert.Equal(expected, actual);
@@ -95,7 +95,7 @@ namespace StringCalculator
         [Fact]
         public void GivenDelimitersWithAnyLength_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("//[***]\n1***2***3");
+            var actual = calculator.Add("//[***]\n1***2***3");
             var expected = 6;
 
             Assert.Equal(expected, actual);
@@ -104,7 +104,7 @@ namespace StringCalculator
         [Fact]
         public void GivenMultipleDelimiters_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("//[*][%]\n1*2%3");
+            var actual = calculator.Add("//[*][%]\n1*2%3");
             var expected = 6;
 
             Assert.Equal(expected, actual);
@@ -113,7 +113,7 @@ namespace StringCalculator
         [Fact]
         public void GivenMultipleDelimitersLongerThanOneChar_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("//[***][#][%]\n1***2#3%4");
+            var actual = calculator.Add("//[***][#][%]\n1***2#3%4");
             var expected = 10;
 
             Assert.Equal(expected, actual);
@@ -122,7 +122,7 @@ namespace StringCalculator
         [Fact]
         public void GivenDelimiterWithNumberInBetween_ShouldReturnSum()
         {
-            var actual = calculator.Calculate("//[*1*][%]\n1*1*2%3");
+            var actual = calculator.Add("//[*1*][%]\n1*1*2%3");
             var expected = 6;
 
             Assert.Equal(expected, actual);
